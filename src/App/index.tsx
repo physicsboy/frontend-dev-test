@@ -13,8 +13,11 @@ import { GridRowSelectionModel } from "@mui/x-data-grid";
 import { EmployeeType, Person, PersonRole } from "../types";
 import Table from "./Table";
 import { Filter } from "./Filter";
+import {useSearchParams} from "react-router-dom";
 
 function App() {
+  let [searchParams, setSearchParams] = useSearchParams();
+
   const [rowSelectionModel, setRowSelectionModel] =
     React.useState<GridRowSelectionModel>([]);
   const [search, setSearch] = React.useState<string>("");
@@ -53,6 +56,12 @@ function App() {
         setErrorMessage("There has been an error loading from the API.")
       );
   }, [search, role, employeeType, offset, pageSize, sort, sortDirection]);
+
+  // TODO: This is a debug test
+  const handleSearch = (search: string) => {
+    setSearch(search);
+    setSearchParams({search});
+  };
 
   return (
     <Container>
