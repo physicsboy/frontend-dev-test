@@ -32,6 +32,11 @@ function App() {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
+  const handleRoleChange = (role: any) => {
+    setRole(role);
+    role === 'STUDENT' && setEmployeeType('ANY');
+  }
+
   useEffect(() => {
     setShowDrawer(rowSelectionModel.length > 0);
   }, [rowSelectionModel]);
@@ -69,7 +74,7 @@ function App() {
             search,
             setSearch,
             role,
-            setRole,
+            setRole: handleRoleChange,
             employeeType,
             setEmployeeType,
           }}
