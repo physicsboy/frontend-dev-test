@@ -14,16 +14,22 @@ import { EmployeeType, PersonRole } from "../types";
 
 interface FilterProps {
   search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setSearch: (search: string) => void;
   role: PersonRole;
-  setRole: React.Dispatch<React.SetStateAction<PersonRole>>;
+  setRole: (role: PersonRole) => void;
   employeeType: EmployeeType;
-  setEmployeeType: React.Dispatch<React.SetStateAction<EmployeeType>>;
+  setEmployeeType: (employeeType: EmployeeType) => void;
 }
 
 export function Filter(props: FilterProps) {
-  const { search, setSearch, role, setRole, employeeType, setEmployeeType } =
-    props;
+  const {
+    search,
+    setSearch,
+    role,
+    setRole,
+    employeeType,
+    setEmployeeType
+  } = props;
 
   const onReset = () => {
     setSearch("");
