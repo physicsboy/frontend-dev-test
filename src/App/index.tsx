@@ -20,11 +20,11 @@ function App() {
 
   const [rowSelectionModel, setRowSelectionModel] =
     React.useState<GridRowSelectionModel>([]);
-  const [search, setSearch] = React.useState<string>("");
+  const [search, setSearch] = React.useState<string>(searchParams.get('search') || '');
   const [offset, setOffset] = React.useState<number>(0);
   const [pageSize, setPageSize] = React.useState<number>(10);
-  const [role, setRole] = React.useState<PersonRole>("ANY");
-  const [employeeType, setEmployeeType] = React.useState<EmployeeType>("ANY");
+  const [role, setRole] = React.useState<PersonRole>(searchParams.get('role') as PersonRole || "ANY");
+  const [employeeType, setEmployeeType] = React.useState<EmployeeType>(searchParams.get('employeeType') as EmployeeType ||"ANY");
   const [showDrawer, setShowDrawer] = React.useState<boolean>(false);
   const [sort, setSort] = React.useState<keyof Person | null>(null);
   const [sortDirection, setSortDirection] = React.useState<
@@ -35,10 +35,21 @@ function App() {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
-  const handleRoleChange = (role: any) => {
+  const handleSearchChange = (search: string): void => {
+    setSearch(search);
+    setSearchParams({search});
+  };
+
+  const handleRoleChange = (role: PersonRole): void => {
     setRole(role);
     role === 'STUDENT' && setEmployeeType('ANY');
+    setSearchParams({role});
   }
+
+  const handleEmployeeTypeChange = (employeeType: EmployeeType): void => {
+    setEmployeeType(employeeType);
+    setSearchParams({employeeType});
+  };
 
   useEffect(() => {
     setShowDrawer(rowSelectionModel.length > 0);
@@ -56,12 +67,6 @@ function App() {
         setErrorMessage("There has been an error loading from the API.")
       );
   }, [search, role, employeeType, offset, pageSize, sort, sortDirection]);
-
-  // TODO: This is a debug test
-  const handleSearch = (search: string) => {
-    setSearch(search);
-    setSearchParams({search});
-  };
 
   return (
     <Container>
@@ -81,11 +86,11 @@ function App() {
         <Filter
           {...{
             search,
-            setSearch,
+            setSearch: handleSearchChange,
             role,
             setRole: handleRoleChange,
             employeeType,
-            setEmployeeType,
+            setEmployeeType: handleEmployeeTypeChange,
           }}
         />
 
