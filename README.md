@@ -48,7 +48,7 @@ There are a number of issues with the code:
 
 So the tasks are as follows:
 
-1. Split grid state, UI state and filter state apart, and use a state management solution of your own choosing to manage them. Your goals should be (i) to have separate state representations for each, (ii) provide a clean and well-typed solution for getting and updating each state, and (iii) avoid having to drill props down to child components. Before picking on a solution, it's recommended you think about the other issues that need fixing and to make sure your solution is compatible with them.
+1. ~~Split grid state, UI state and filter state apart, and use a state management solution of your own choosing to manage them. Your goals should be (i) to have separate state representations for each, (ii) provide a clean and well-typed solution for getting and updating each state, and (iii) avoid having to drill props down to child components. Before picking on a solution, it's recommended you think about the other issues that need fixing and to make sure your solution is compatible with them.~~
 
 2. ~~Fix the bug so that, if Role is set to a value other than Employee in the filter, the filter's value for Employee Type is automatically reset back to ANY, to avoid the bug. Do not fix the bug in `api.ts` - consider it a backend bug/feature that has to be worked around.~~
 
