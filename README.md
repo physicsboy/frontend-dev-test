@@ -54,7 +54,7 @@ So the tasks are as follows:
 
 3. ~~Add a column for email address in the Grid. Documentation for how to write column definitions for MUI DataGrid can be found [here](https://mui.com/x/react-data-grid/column-definition/).~~
 
-4. Add props to the DataGrid to connect it to server-side sorting, so that sorting is performed on the dataset by the API call, and is not just sorting the 10 results visible in the frontend. The documentation for the sorting API for MUI DataGrid component can be found [here](https://mui.com/x/react-data-grid/sorting/).
+4. ~~Add props to the DataGrid to connect it to server-side sorting, so that sorting is performed on the dataset by the API call, and is not just sorting the 10 results visible in the frontend. The documentation for the sorting API for MUI DataGrid component can be found [here](https://mui.com/x/react-data-grid/sorting/).~~
 
 5. ~~Add code to update the browser query string when a change in filter state is made, and that when the page loads, if filter info is present in the browser query string, the filter loads in this state correctly when it initializes.~~
 

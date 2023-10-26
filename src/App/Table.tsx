@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {DataGrid, GridColDef, GridRowSelectionModel, GridSortModel} from "@mui/x-data-grid";
 import { Person } from "../types";
 import { Box } from "@mui/material";
@@ -22,8 +22,6 @@ interface TableProps {
 }
 
 export default function Table(props: TableProps) {
-  const [sortModel, setSortModel] = useState<GridSortModel>();
-
   const {
     items,
     loading,
