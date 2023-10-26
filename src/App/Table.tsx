@@ -9,19 +9,20 @@ interface TableProps {
   loading: boolean;
   pageSize: number;
   rowSelectionModel: GridRowSelectionModel;
+  sort: keyof Person | null;
+  sortDirection: "asc" | "desc" | null | undefined;
   setRowSelectionModel: React.Dispatch<
     React.SetStateAction<GridRowSelectionModel>
   >;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
   setOffset: React.Dispatch<React.SetStateAction<number>>;
+  // setSort: keyof Person | null; // Threw a wobbly when using the same key as defined in index.tsx
+  setSort: any;
+  setSortDirection: React.Dispatch<React.SetStateAction<"asc" | "desc" | null | undefined>>;
 }
 
 export default function Table(props: TableProps) {
   const [sortModel, setSortModel] = useState<GridSortModel>();
-
-  useEffect(() => {
-    console.log('sortModel changed', {sortModel});
-  }, [sortModel]);
 
   const {
     items,
@@ -32,6 +33,8 @@ export default function Table(props: TableProps) {
     setRowSelectionModel,
     setPageSize,
     setOffset,
+    setSort,
+    setSortDirection
   } = props;
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 70 },
@@ -77,9 +80,11 @@ export default function Table(props: TableProps) {
         disableColumnFilter
         disableRowSelectionOnClick
         sortingMode="server"
-        sortModel={sortModel}
         onSortModelChange={(sortModel: GridSortModel) => {
-          setSortModel(sortModel);
+          console.log({sortModel, sort: sortModel?.[0]?.field, sortDirection: sortModel?.[0]?.sort});
+          // NOTE: This will only be good for sorting single columns at the moment.
+          setSort(sortModel?.[0]?.field); // as keyof Person
+          setSortDirection(sortModel?.[0]?.sort); // as "asc" | "desc" | null | undefined
         }}
         paginationMode="server"
         rowCount={rowCount}
