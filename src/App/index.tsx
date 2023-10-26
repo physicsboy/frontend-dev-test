@@ -26,30 +26,51 @@ function App() {
   const [role, setRole] = React.useState<PersonRole>(searchParams.get('role') as PersonRole || "ANY");
   const [employeeType, setEmployeeType] = React.useState<EmployeeType>(searchParams.get('employeeType') as EmployeeType ||"ANY");
   const [showDrawer, setShowDrawer] = React.useState<boolean>(false);
-  const [sort, setSort] = React.useState<keyof Person | null>(null);
+  const [sort, setSort] = React.useState<keyof Person | null>(searchParams.get('sort') as keyof Person || null);
   const [sortDirection, setSortDirection] = React.useState<
     "asc" | "desc" | null | undefined
-  >(null);
+  >(searchParams.get('searchDirection') as "asc" | "desc" | null | undefined || null);
   const [items, setItems] = React.useState<Person[]>([]);
   const [count, setCount] = React.useState<number>(0);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
+  const updateSearchParams = (newSearchParams: any): void => {
+    const [key, val] = Object.entries(newSearchParams)[0];
+
+    setSearchParams(params => {
+      params.set(key, val as string);
+      return params;
+    });
+  }
+
   const handleSearchChange = (search: string): void => {
     setSearch(search);
-    setSearchParams({search});
+    updateSearchParams({search});
   };
 
   const handleRoleChange = (role: PersonRole): void => {
     setRole(role);
     role === 'STUDENT' && setEmployeeType('ANY');
-    setSearchParams({role});
+    updateSearchParams({role});
   }
 
   const handleEmployeeTypeChange = (employeeType: EmployeeType): void => {
     setEmployeeType(employeeType);
-    setSearchParams({employeeType});
+    updateSearchParams({employeeType});
   };
+
+  // TODO: Update type
+  const handleSortChange = (sort: any): void => {
+    setSort(sort);
+    updateSearchParams({sort});
+  }
+
+  // TODO: Update type
+  const handleSortDirectionChange = (sortDirection: any): void => {
+    setSortDirection(sortDirection);
+    updateSearchParams({sortDirection});
+  }
 
   useEffect(() => {
     setShowDrawer(rowSelectionModel.length > 0);
@@ -100,9 +121,13 @@ function App() {
           rowCount={count}
           pageSize={pageSize}
           rowSelectionModel={rowSelectionModel}
+          sort={sort}
+          sortDirection={sortDirection}
           setRowSelectionModel={setRowSelectionModel}
           setOffset={setOffset}
           setPageSize={setPageSize}
+          setSort={handleSortChange}
+          setSortDirection={handleSortDirectionChange}
         />
 
         <Drawer
