@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode} from "react";
+import React, {createContext, ReactNode, useCallback} from "react";
 import {EmployeeType, PersonRole} from "../types";
 import useSearchParams from "../hooks/useSearchParams";
 
@@ -22,6 +22,7 @@ const initialContext: ContextType = {
 
 const FilterContext = createContext<ContextType>(initialContext);
 
+// Could be moved to hooks directory
 export const useFilterContext = () => React.useContext(FilterContext);
 
 export const FilterProvider = ({children}: {children: ReactNode}): JSX.Element => {
@@ -31,21 +32,21 @@ export const FilterProvider = ({children}: {children: ReactNode}): JSX.Element =
     const [role, setRole] = React.useState<PersonRole>(searchParams.get('role') as PersonRole || "ANY");
     const [employeeType, setEmployeeType] = React.useState<EmployeeType>(searchParams.get('employeeType') as EmployeeType ||"ANY");
 
-    const handleSearchChange = (search: string): void => {
+    const handleSearchChange = useCallback((search: string): void => {
         setSearch(search);
         updateSearchParams({search});
-    };
+    }, [updateSearchParams]);
 
-    const handleRoleChange = (role: PersonRole): void => {
+    const handleRoleChange = useCallback((role: PersonRole): void => {
         setRole(role);
         role === 'STUDENT' && setEmployeeType('ANY');
         updateSearchParams({role});
-    }
+    }, [updateSearchParams]);
 
-    const handleEmployeeTypeChange = (employeeType: EmployeeType): void => {
+    const handleEmployeeTypeChange = useCallback((employeeType: EmployeeType): void => {
         setEmployeeType(employeeType);
         updateSearchParams({employeeType});
-    };
+    }, [updateSearchParams]);
 
     return (
         <FilterContext.Provider value={{search, role, employeeType, handleSearchChange, handleRoleChange, handleEmployeeTypeChange}}>

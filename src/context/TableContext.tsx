@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode} from "react";
+import React, {createContext, ReactNode, useCallback} from "react";
 import {Person} from "../types";
 import {GridRowSelectionModel} from "@mui/x-data-grid";
 import useSearchParams from "../hooks/useSearchParams";
@@ -47,6 +47,7 @@ const initialContext: ContextType = {
 
 const TableContext = createContext(initialContext);
 
+// Could be moved to hooks directory
 export const useTableContext = () => React.useContext(TableContext);
 
 export const TableProvider = ({ children }: {children: ReactNode}): JSX.Element => {
@@ -63,15 +64,15 @@ export const TableProvider = ({ children }: {children: ReactNode}): JSX.Element 
   >(searchParams.get('searchDirection') as "asc" | "desc" | null | undefined || null);
   const [offset, setOffset] = React.useState<number>(0);
 
-  const handleSortChange = (sort: keyof Person | null): void => {
+  const handleSortChange = useCallback((sort: keyof Person | null): void => {
     setSort(sort);
     updateSearchParams({sort: sort as keyof Person});
-  }
+  }, [updateSearchParams])
 
-  const handleSortDirectionChange = (sortDirection: "asc" | "desc" | null | undefined): void => {
+  const handleSortDirectionChange = useCallback((sortDirection: "asc" | "desc" | null | undefined): void => {
     setSortDirection(sortDirection);
     updateSearchParams({sortDirection: sortDirection as string});
-  }
+  }, [updateSearchParams])
 
   return <TableContext.Provider value={{
     items, loading, count, pageSize, rowSelectionModel, sort, sortDirection, offset,
