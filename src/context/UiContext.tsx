@@ -16,6 +16,7 @@ const initialContext: ContextType = {
 
 const UiContext = createContext(initialContext);
 
+// Could be moved to hooks directory
 export const useUiContext = () => useContext(UiContext);
 
 export const UiProvider = ({children}: {children: ReactNode}): JSX.Element => {

@@ -17,7 +17,7 @@ import { useFilterContext } from "../context/FilterContext";
 
 function App() {
   const {showDrawer, errorMessage, setShowDrawer, setErrorMessage} = useUiContext();
-  const {search, role, employeeType, handleSearchChange, handleRoleChange, handleEmployeeTypeChange} = useFilterContext();
+  const {search, role, employeeType} = useFilterContext();
   const {
     pageSize, rowSelectionModel, sort, sortDirection, offset,
     setItems, setLoading, setCount, setRowSelectionModel
@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     setShowDrawer(rowSelectionModel.length > 0);
-  }, [rowSelectionModel]);
+  }, [setShowDrawer, rowSelectionModel]);
 
   useEffect(() => {
     setLoading(true);
@@ -38,7 +38,7 @@ function App() {
       .catch(() =>
         setErrorMessage("There has been an error loading from the API.")
       );
-  }, [search, role, employeeType, offset, pageSize, sort, sortDirection]);
+  }, [setCount, setErrorMessage, setItems, setLoading, search, role, employeeType, offset, pageSize, sort, sortDirection]);
 
   return (
     <Container>
