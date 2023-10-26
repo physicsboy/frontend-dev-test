@@ -81,7 +81,6 @@ export default function Table(props: TableProps) {
         disableRowSelectionOnClick
         sortingMode="server"
         onSortModelChange={(sortModel: GridSortModel) => {
-          console.log({sortModel, sort: sortModel?.[0]?.field, sortDirection: sortModel?.[0]?.sort});
           // NOTE: This will only be good for sorting single columns at the moment.
           setSort(sortModel?.[0]?.field); // as keyof Person
           setSortDirection(sortModel?.[0]?.sort); // as "asc" | "desc" | null | undefined

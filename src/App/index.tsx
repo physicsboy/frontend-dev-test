@@ -62,14 +62,12 @@ function App() {
 
   // TODO: Update type
   const handleSortChange = (sort: any): void => {
-    console.log('handleSortChange', {sort});
     setSort(sort);
     updateSearchParams({sort});
   }
 
   // TODO: Update type
   const handleSortDirectionChange = (sortDirection: any): void => {
-    console.log('handleSortDirectionChange', {sortDirection});
     setSortDirection(sortDirection);
     updateSearchParams({sortDirection});
   }
