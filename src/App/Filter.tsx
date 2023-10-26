@@ -11,30 +11,22 @@ import {
   Typography,
 } from "@mui/material";
 import { EmployeeType, PersonRole } from "../types";
+import {useFilterContext} from "../context/FilterContext";
 
-interface FilterProps {
-  search: string;
-  setSearch: (search: string) => void;
-  role: PersonRole;
-  setRole: (role: PersonRole) => void;
-  employeeType: EmployeeType;
-  setEmployeeType: (employeeType: EmployeeType) => void;
-}
-
-export function Filter(props: FilterProps) {
+export function Filter() {
   const {
     search,
-    setSearch,
+    handleSearchChange,
     role,
-    setRole,
+    handleRoleChange,
     employeeType,
-    setEmployeeType
-  } = props;
+    handleEmployeeTypeChange
+  } = useFilterContext();
 
   const onReset = () => {
-    setSearch("");
-    setRole("ANY");
-    setEmployeeType("ANY");
+    handleSearchChange("");
+    handleRoleChange("ANY");
+    handleEmployeeTypeChange("ANY");
   };
 
   return (
@@ -45,7 +37,7 @@ export function Filter(props: FilterProps) {
           name="search"
           label="Search"
           variant="outlined"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => handleSearchChange(e.target.value)}
           value={search}
         />
 
@@ -56,7 +48,7 @@ export function Filter(props: FilterProps) {
             id="role"
             name="role"
             label="Role"
-            onChange={(e) => setRole(e.target.value as PersonRole)}
+            onChange={(e) => handleRoleChange(e.target.value as PersonRole)}
             value={role}
           >
             <MenuItem value="ANY">Any</MenuItem>
@@ -72,7 +64,7 @@ export function Filter(props: FilterProps) {
             id="employee"
             name="employee"
             label="Employee Type"
-            onChange={(e) => setEmployeeType(e.target.value as EmployeeType)}
+            onChange={(e) => handleEmployeeTypeChange(e.target.value as EmployeeType)}
             value={employeeType}
             disabled={role === "STUDENT"}
           >

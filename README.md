@@ -48,13 +48,13 @@ There are a number of issues with the code:
 
 So the tasks are as follows:
 
-1. Split grid state, UI state and filter state apart, and use a state management solution of your own choosing to manage them. Your goals should be (i) to have separate state representations for each, (ii) provide a clean and well-typed solution for getting and updating each state, and (iii) avoid having to drill props down to child components. Before picking on a solution, it's recommended you think about the other issues that need fixing and to make sure your solution is compatible with them.
+1. ~~Split grid state, UI state and filter state apart, and use a state management solution of your own choosing to manage them. Your goals should be (i) to have separate state representations for each, (ii) provide a clean and well-typed solution for getting and updating each state, and (iii) avoid having to drill props down to child components. Before picking on a solution, it's recommended you think about the other issues that need fixing and to make sure your solution is compatible with them.~~
 
 2. ~~Fix the bug so that, if Role is set to a value other than Employee in the filter, the filter's value for Employee Type is automatically reset back to ANY, to avoid the bug. Do not fix the bug in `api.ts` - consider it a backend bug/feature that has to be worked around.~~
 
 3. ~~Add a column for email address in the Grid. Documentation for how to write column definitions for MUI DataGrid can be found [here](https://mui.com/x/react-data-grid/column-definition/).~~
 
-4. Add props to the DataGrid to connect it to server-side sorting, so that sorting is performed on the dataset by the API call, and is not just sorting the 10 results visible in the frontend. The documentation for the sorting API for MUI DataGrid component can be found [here](https://mui.com/x/react-data-grid/sorting/).
+4. ~~Add props to the DataGrid to connect it to server-side sorting, so that sorting is performed on the dataset by the API call, and is not just sorting the 10 results visible in the frontend. The documentation for the sorting API for MUI DataGrid component can be found [here](https://mui.com/x/react-data-grid/sorting/).~~
 
 5. ~~Add code to update the browser query string when a change in filter state is made, and that when the page loads, if filter info is present in the browser query string, the filter loads in this state correctly when it initializes.~~
 

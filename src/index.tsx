@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import {UiProvider} from "./context/UiContext";
+import {TableProvider} from "./context/TableContext";
+import {FilterProvider} from "./context/FilterContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -10,7 +13,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <UiProvider>
+        <TableProvider>
+          <FilterProvider>
+            <App />
+          </FilterProvider>
+        </TableProvider>
+      </UiProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
